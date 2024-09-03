@@ -1,0 +1,19 @@
+/* landing-page.component.css */
+.landing-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navbar {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .nav-link {
+    margin-right: 15px;
+  }
+  
+  .btn-primary {
+    margin-left: 15px;
+  }
+  
