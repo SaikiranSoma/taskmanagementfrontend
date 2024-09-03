@@ -1,0 +1,84 @@
+.register-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    height: 100vh;
+  }
+  
+  .register-form {
+    max-width: 450px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 0 0 20px;
+    color: #666;
+  }
+  
+  .google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .google-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .separator {
+    text-align: center;
+    margin: 10px 0;
+    color: #666;
+  }
+  
+  .email-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .continue-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0073E6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .terms {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  .login-link {
+    font-size: 14px;
+    color: #0073E6;
+  }
+  
+  .illustration1 {
+    max-width: 600px;
+  }
+  
+  .illustration1 img {
+    width: 100%;
+  }
+  
