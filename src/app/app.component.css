@@ -1,0 +1,11 @@
+.navbar-nav {
+    flex-direction: row; /* Ensure items are in a row */
+  }
+  
+  .navbar-nav .nav-item {
+    margin-left: 10px; /* Adjust spacing between items */
+  }
+  
+  .navbar-toggler {
+    border: none; /* Optional: Remove border around toggler button */
+  }

@@ -1,0 +1,20 @@
+.task-column {
+    min-height: 300px;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .task {
+    cursor: grab;
+  }
+  
+  .task .card {
+    background-color: #f8f9fa;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  

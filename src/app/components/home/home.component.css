@@ -27,3 +27,122 @@
     height: 100%;
   }
   
+
+  /* home-page.component.css */
+
+  .full-width-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000; /* Dark background */
+  }
+  
+  .rounded-icon {
+    border-radius: 10px;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+  }
+  
+  img {
+    margin: 0 15px;
+    display: inline-block;
+  }
+  
+
+  /***********Time zone component**/
+/* Full-screen background */
+.home-container {
+  height: 100vh;
+  background-color: #0023B4; /* Dark blue background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Left Side */
+h1 {
+  font-size: 3rem;
+}
+
+button {
+  font-size: 1.2rem;
+  margin-right: 20px; /* Add space between buttons */
+}
+
+.btn-light {
+  background-color: #ffffff;
+  color: #0023B4;
+}
+
+.btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* Floating Images Section */
+.floating-images {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 300px;
+  width: 100%;
+}
+
+/* Individual image styles */
+.circle-image-large,
+.circle-image-medium,
+.circle-image-small {
+  border-radius: 50%;
+  position: absolute;
+}
+
+/* Large Image */
+.circle-image-large {
+  width: 150px;
+  height: 150px;
+  top: 30%;
+  left: 10%;
+}
+
+/* Medium Image */
+.circle-image-medium {
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  left: 30%;
+}
+
+/* Small Image */
+.circle-image-small {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  left: 60%;
+}
+
+/* Adding random spacing between images */
+.circle-image-large {
+  transform: translate(50px, 30px); /* Adjust random position */
+}
+
+.circle-image-medium {
+  transform: translate(120px, 60px); /* Adjust random position */
+}
+
+.circle-image-small {
+  transform: translate(70px, 30px); /* Adjust random position */
+}
