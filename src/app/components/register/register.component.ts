@@ -13,7 +13,6 @@ export class RegisterComponent {
   registerForm: FormGroup=null!;
   submitted = false;
   constructor(private fb: FormBuilder) {
-    console.log('RegisterComponent initialized');
   }
   ngOnInit(): void {
     this.registerForm = this.fb.group({
