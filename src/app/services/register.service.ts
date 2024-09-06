@@ -6,15 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-
-  private baseUrl = 'https://your-api-endpoint/api/admin/register'; // Replace with your backend URL
-  constructor(private http: HttpClient) {}
-  registerAdmin(adminData: any): Observable<any> {
-    return this.http.post(this.baseUrl, adminData);
-  }
-  getTimeZoneByCountry(country: string): Observable<any> {
-    return this.http.get(`https://your-api-endpoint/api/getTimeZone/${country}`); // Replace with your time zone API URL
-  }
+//for getting the time zone by country id
+  // private baseUrl = 'http://localhost:5275/api/Authentication/register-admin'; // Replace with your backend URL
+  // constructor(private http: HttpClient) {}
+  // registerAdmin(adminData: any): Observable<any> {
+  //   return this.http.post(this.baseUrl, adminData);
+  // }
+  // getTimeZoneByCountry(country: string): Observable<any> {
+    
+  //   return this.http.get(`https://api.timezonedb.com/v2.1/list-time-zone?key={apiKey}&format=json&country={isoCountryCode}`); // Replace with your time zone API URL
+  // }
 
 
 

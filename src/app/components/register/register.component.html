@@ -8,32 +8,46 @@
   <div class="col-md-6 mt-5 d-flex justify-content-center align-items-center">
     <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
       <h3 class="mb-4 text-center">Register</h3>
-      <form>
-
-        <div class="mb-2">
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <div class=" mb-2">
           <label for="empid" class="form-label">EmployeeId</label>
-          <input type="text" id="empid" placeholder="Enter your id" class="form-control">
+          <input type="text" id="empid" placeholder="Enter your id" class="form-control" formControlName="empid"  [class.is-invalid]="validateControl('empid')">
+          <span *ngIf="validateControlError('empid', 'required')" class="text-danger">
+            Id is Mandatory
+        </span>
         </div>
 
         <div class="mb-2">
           <label for="username" class="form-label">User Name</label>
-          <input type="text" id="username" placeholder="Enter your name" class="form-control">
+          <input type="text" id="username" placeholder="Enter your name" class="form-control" formControlName="username" [class.is-invalid]="validateControl('username')">
+          <span *ngIf="validateControlError('username', 'required')" class="text-danger">
+            Username is Mandatory
+        </span>
+      
         </div>
 
         <div class="mb-2">
           <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" placeholder="name@company.com" class="form-control">
+          <input type="email" id="email" placeholder="name@company.com" class="form-control "   formControlName="email"   [class.is-invalid]="validateControl('email')">
+            <span *ngIf="validateControlError('email', 'required')" class="text-danger">
+              Email is Mandatory
+          </span>
+        <span *ngIf="validateControlError('email','email')" class="text-danger">Email is Invalid</span>
         </div>
 
         <div class="mb-3">
           <label for="inputPassword5" class="form-label">Password</label>
-          <input type="password" id="inputPassword5" placeholder="Enter your password" class="form-control" aria-describedby="passwordHelpBlock">
+          <input type="password" id="inputPassword5" placeholder="Enter your password" class="form-control" aria-describedby="passwordHelpBlock"  formControlName="password"  [class.is-invalid]="validateControl('password')" >
+          <span *ngIf="validateControlError('password', 'required')" class="text-danger">
+            password is Mandatory
+        </span>
+        <span *ngIf="validateControlError('password','password')" class="text-danger">It doesn't meet requirements</span>
         </div>
 
         <div class="mb-2">
           <label for="country" class="form-label">Select Country</label>
-          <select class="form-select" id="country" aria-label="Select your country">
-            <option selected>Choose your country</option>
+          <select class="form-select" id="country" aria-label="Select your country" formControlName="country"  [class.is-invalid]="validateControl('country')" >
+            <option selected >Choose your country</option>
             <option value="AF">Afghanistan</option>
             <option value="AL">Albania</option>
             <option value="DZ">Algeria</option>
@@ -228,11 +242,14 @@
             <option value="YE">Yemen</option>
             <option value="ZM">Zambia</option>
             <option value="ZW">Zimbabwe</option>
-            <!-- Add more options as needed -->
+            
           </select>
+          <span *ngIf="validateControlError('country', 'required')" class="text-danger">
+            Country is Mandatory
+        </span>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100" routerLink="/login"   >Register</button>
+    
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid"   >Register</button>
         <p class="text-center mt-3">Already have an account? <a routerLink="/login">Log in</a></p>
       </form>
     </div>
