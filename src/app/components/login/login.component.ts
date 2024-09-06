@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   submitted:boolean=false;
   loginForm: FormGroup=null!;
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder,private loginservice:LoginService){}
   ngOnInit(): void{
     this.loginForm=this.fb.group({
       username:['',[Validators.required]],
