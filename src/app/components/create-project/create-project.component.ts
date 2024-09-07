@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './create-project.component.css'
 })
 export class CreateProjectComponent {
+  projectName: string = '';
 
+  onSubmit() {
+    console.log('Project Created:', this.projectName);
+  }
 }
