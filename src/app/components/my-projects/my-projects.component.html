@@ -1,1 +1,12 @@
-<p>my-projects works!</p>
+<h2>My Projects</h2>
+<div *ngIf="projects && projects.length > 0; else noProjects">
+  <ul>
+    <li *ngFor="let project of projects">
+      {{ project.name }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #noProjects>
+  <p>You don't have any projects yet.</p>
+</ng-template>

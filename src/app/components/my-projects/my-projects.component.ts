@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './my-projects.component.css'
 })
 export class MyProjectsComponent {
-
+  projects = [
+    { name: 'Project 1' },
+    { name: 'Project 2' }
+  ];
 }
