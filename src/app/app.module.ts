@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HomeComponent,
     LoginComponent,
     DashboardComponent,
+    MyProjectsComponent,
     
   ],
   imports: [
