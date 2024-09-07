@@ -7,8 +7,12 @@ import { Component } from '@angular/core';
 })
 export class CreateProjectComponent {
   projectName: string = '';
+  projectCreated: boolean = false;
 
   onSubmit() {
-    console.log('Project Created:', this.projectName);
+    if (this.projectName) {
+      this.projectCreated = true;
+      console.log('Project Created:', this.projectName);
+    }
   }
 }

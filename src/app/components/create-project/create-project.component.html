@@ -1,8 +1,17 @@
 <h2>Create a New Project</h2>
 <form (ngSubmit)="onSubmit()">
-  <label for="projectName">Project Name:</label>
-  <input type="text" id="projectName" [(ngModel)]="projectName" name="projectName" required>
+  <div class="mb-3">
+    <label for="projectName" class="form-label">Project Name:</label>
+    <input type="text" id="projectName" [(ngModel)]="projectName" name="projectName" class="form-control" required>
+  </div>
 
-  <button type="submit">Create Project</button>
+  <button type="submit" class="btn btn-primary">Create Project</button>
 </form>
 
+<!-- Bootstrap card to display the project details -->
+<div *ngIf="projectCreated" class="card mt-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ projectName }}</h5>
+    <p class="card-text">This is your newly created project.</p>
+  </div>
+</div>
