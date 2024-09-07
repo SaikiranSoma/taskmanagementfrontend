@@ -1,57 +1,30 @@
-  <!-- <div class="container mt-4">
-    <h2 class="text-center mb-4">Task Management Dashboard</h2>
-  
-    <div class="row">
-       To Do Column 
-      <div class="col-md-4">
-        <h4>To Do</h4>
-        <div cdkDropList id="todo" class="task-column bg-light p-3" cdkDropListConnectedTo="inprogress completed" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of todo" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-info">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('todo')">Add Task</button>
-      </div>
-  
-      
-      <div class="col-md-4">
-        <h4>In Progress</h4>
-        <div cdkDropList id="inprogress" class="task-column bg-light p-3" cdkDropListConnectedTo="todo completed" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of inprogress" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-success">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('inprogress')">Add Task</button>
-      </div>
-  
-      
-      <div class="col-md-4">
-        <h4>Completed</h4>
-        <div cdkDropList id="completed" class="task-column bg-light p-3" cdkDropListConnectedTo="todo inprogress" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of completed" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-warning">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('completed')">Add Task</button>
-      </div>
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <div class="logo">
+      <h2>{{ userName }}</h2>
+    </div>
+    <div class="user-profile">
+      <span>Hi, {{ userName }}</span>
+      <img src="path-to-user-profile-image" alt="Profile" class="profile-pic">
+    </div>
+  </header>
+
+  <div class="dashboard-body">
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="/projects">My Projects</a>
+          </li>
+          <li>
+            <a routerLink="/create-project">Create Project</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
   </div>
-     -->
-
-
-     <h1>DashBoard</h1>
+</div>
