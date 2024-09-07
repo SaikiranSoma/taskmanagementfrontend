@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MyProjectsComponent } from './components/my-projects/my-projects.compon
     LoginComponent,
     DashboardComponent,
     MyProjectsComponent,
+    CreateProjectComponent,
     
   ],
   imports: [
