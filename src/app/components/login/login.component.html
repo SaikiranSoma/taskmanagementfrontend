@@ -1,6 +1,6 @@
 <div class="container-fluid d-flex justify-content-center align-items-center vh-100 bg-primary">
   <div class="card p-5 shadow-lg" style="max-width: 400px; width: 100%; height: 500px; border-radius: 15px;">
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <div class="mb-4 text-center">
         <h3>Login</h3>
       </div>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="mb-2">
-        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid" routerLink="/dashboard">Login</button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
         <p class="text-center mt-1">Dont have an account? <a routerLink="/register">Register</a></p>
       </div>
     </form>

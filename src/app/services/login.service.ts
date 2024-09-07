@@ -7,9 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
+  private role:string=null!;
   private baseUrl="http://localhost:3000";
   constructor(private http: HttpClient) {}
-  postData(endpoint: string, data: any): Observable<any> {
+  postData(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/Login`, data);
   }
+  getUserRoleFromToken(token:string): string | null {
+    return this.role;
+  }
+
 }
