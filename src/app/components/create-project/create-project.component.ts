@@ -1,4 +1,8 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+
+
+
 
 @Component({
   selector: 'app-create-project',
@@ -6,13 +10,6 @@ import { Component } from '@angular/core';
   styleUrl: './create-project.component.css'
 })
 export class CreateProjectComponent {
-  projectName: string = '';
-  projectCreated: boolean = false;
+  
 
-  onSubmit() {
-    if (this.projectName) {
-      this.projectCreated = true;
-      console.log('Project Created:', this.projectName);
-    }
-  }
 }

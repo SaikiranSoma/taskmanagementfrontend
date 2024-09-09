@@ -4,6 +4,7 @@ import { CreateProjectComponent } from './components/create-project/create-proje
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { MaindashboardComponent } from './components/maindashboard/maindashboard.component';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -12,11 +13,15 @@ const routes: Routes = [
 
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'dashboard', component:DashboardComponent},
-  {path:'create-project', component:CreateProjectComponent},
-  {path:'my-projects', component:MyProjectsComponent},
+  {path:'dashboard', component:DashboardComponent,children:[
+    {path:'create-project', component:CreateProjectComponent},
+    {path:'my-projects', component:MyProjectsComponent},
+    {path:'maindashboard', component:MaindashboardComponent},
+  ]},
+  
+  
   { path: '', redirectTo: '/home', pathMatch: 'full' }
-  //{ path: '**', redirectTo: '/home' }
+  
   
 ];
 

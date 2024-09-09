@@ -12,6 +12,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MaindashboardComponent } from './components/maindashboard/maindashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DashboardComponent,
     MyProjectsComponent,
     CreateProjectComponent,
+    MaindashboardComponent,
     
   ],
   imports: [
