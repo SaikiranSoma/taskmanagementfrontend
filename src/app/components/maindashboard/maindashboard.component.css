@@ -1,18 +1,43 @@
+/* Custom styles for the cards */
 .card {
-    border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.avatar-circle {
+  background-color: #f28b82;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-circle .initials {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.project-icon {
+  background-color: #bbdefb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-icon i {
+  font-size: 20px;
+  color: #1976d2;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
   }
-  
-  .jumbotron {
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  
-  .card-title {
-    font-weight: bold;
-  }
-  
-  .card-text {
-    font-size: 14px;
-    color: #6c757d;
-  }
-  
+}

@@ -1,33 +1,19 @@
 <div class="container-fluid p-0">
-  <!-- Upper Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
-    <a class="navbar-brand" href="#">myTask</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <!-- Profile Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex " href="javascript:void(0);" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="https://via.placeholder.com/30" class="rounded-circle mr-2" alt="profile-img">
-            <span>John Doe</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="profileDropdown" style="width: 250px;">
-            <div class="text-center">
-              <img src="https://via.placeholder.com/60" class="rounded-circle mb-2" alt="profile-img">
-              <h6 class="mb-0">John Doe</h6>
-              <small class="text-muted">johndoe.com</small>
-            </div>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item text-danger" href="#">Sign Out</a>
-          </div>
-        </li>
-      </ul>
+  <nav class="navbar">
+    <div class="right-section">
+      <div class="profile-section">
+        <button class="profile-button" (click)="toggleDropdown()">
+          <span>{{ userName.charAt(0) }}</span>
+        </button>
+        <div class="profile-dropdown" *ngIf="isDropdownOpen">
+          <p>{{ userName }}</p>
+          <p>{{ userEmail }}</p>
+          <button class="signout-button" (click)="signOut()">Sign out</button>
+        </div>
+      </div>
     </div>
   </nav>
+  
   
 
   <div class="row no-gutters" style="height: calc(100vh - 56px);">
