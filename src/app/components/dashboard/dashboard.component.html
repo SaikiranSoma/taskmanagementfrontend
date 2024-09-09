@@ -1,13 +1,22 @@
-<div class="dashboard-container">
-  <header class="dashboard-header">
-    <div class="logo">
-      <h2>{{ userName }}</h2>
-    </div>
-    <div class="user-profile">
-      <span>Hi, {{ userName }}</span>
-      <img src="path-to-user-profile-image" alt="Profile" class="profile-pic">
-    </div>
-  </header>
+<nav class="navbar navbar-dark bg-dark justify-content-end">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      Sa
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+      <li>
+        <div class="dropdown-item-text">
+          <strong>{{ userName }}</strong><br>
+          <small>{{ userEmail }}</small>
+        </div>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#" (click)="signOut()">Sign Out</a></li>
+    </ul>
+  </div>
+</nav>
+
+
 
   <div class="dashboard-body">
     <div class="sidebar">
@@ -27,4 +36,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+

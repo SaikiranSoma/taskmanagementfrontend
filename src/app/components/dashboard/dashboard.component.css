@@ -3,14 +3,27 @@
   flex-direction: column;
   height: 100vh;
 }
-
-.dashboard-header {
+.btn-secondary {
+  background-color: #b388ff; /* Profile icon color */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
-  padding: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
 }
+
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.dropdown-item-text {
+  text-align: center;
+}
+
 
 .dashboard-body {
   display: flex;

@@ -6,5 +6,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/dra
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-     userName:string='saikiran';
+  userName = 'Saikiran';
+  userEmail = 'saikiran@example.com';  // Replace with actual data
+
+  signOut() {
+    // Sign-out logic
+  }
 }
