@@ -32,7 +32,7 @@
 
 .sidebar {
   width: 250px;
-  background-color: #2d2d2d;
+  background-color: #000000;
   color: white;
   padding: 20px;
 }
@@ -66,4 +66,44 @@
   margin-left: 10px;
   width: 40px;
   height: 40px;
+}
+
+
+
+/* main component */
+/* Sidebar Styling */
+.sidebar {
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 1rem;
+}
+
+.nav-link {
+  color: #333;
+  font-size: 18px;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.nav-item i {
+  margin-right: 10px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.card-body:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

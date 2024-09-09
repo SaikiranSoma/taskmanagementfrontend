@@ -1,39 +1,138 @@
-<nav class="navbar navbar-dark bg-dark justify-content-end">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      Sa
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-      <li>
-        <div class="dropdown-item-text">
-          <strong>{{ userName }}</strong><br>
-          <small>{{ userEmail }}</small>
-        </div>
-      </li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#" (click)="signOut()">Sign Out</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="container-fluid">
+  <!-- Upper Navigation Bar -->
+  <nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a class="navbar-brand">Home</a>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ userName.charAt(0) }}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+        <li><a class="dropdown-item" href="#" (click)="signOut()">Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
 
-
-
-  <div class="dashboard-body">
-    <div class="sidebar">
-      <nav>
-        <ul>
-          <li>
-            <a routerLink="/my-projects">My Projects</a>
+  <div class="row">
+    <!-- Sidebar Navigation -->
+    <nav class="col-md-2 d-md-block bg-dark sidebar">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" (click)="selectSection('dashboard')">
+              <i class="fas fa-home"></i> Home
+            </a>
           </li>
-          <li>
-            <a routerLink="/create-project">Create Project</a>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="selectSection('myTasks')">
+              <i class="fas fa-tasks"></i> My Tasks
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="selectSection('inbox')">
+              <i class="fas fa-inbox"></i> Inbox
+            </a>
+          </li>
+
+          <hr class="dropdown-divider">
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="selectSection('myProjects')">
+              <i class="fas fa-folder"></i> Projects
+            </a>
+            <ul class="list-unstyled" *ngIf="projects.length > 0">
+              <li *ngFor="let project of projects" class="pl-3">
+                <a href="#" (click)="viewProject(project)">
+                  <i class="fas fa-tasks"></i> {{ project.name }}
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="selectSection('createProject')">
+              <i class="fas fa-plus"></i> Create Project
+            </a>
           </li>
         </ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
 
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
+    <!-- Main Content Area -->
+    <main class="col-md-10 ms-sm-auto px-md-4">
+      <!-- Dashboard Section -->
+      <div *ngIf="selectedSection === 'dashboard'">
+        <h1>Good morning, {{ userName }}</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <p class="lead">My week</p>
+          <div class="d-flex">
+            <div class="mx-3">0 tasks completed</div>
+            <div>1 collaborator</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Projects Section -->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                Projects
+                <span class="float-right">Recents</span>
+              </div>
+              <div class="card-body">
+                <button class="btn btn-outline-primary w-100" (click)="createNewProject()">Create Project</button>
+                <div *ngFor="let project of projects" class="mt-3">
+                  <div class="card">
+                    <div class="card-body" (click)="viewProject(project)">
+                      <h5>{{ project.name }}</h5>
+                      <p>{{ project.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Employees Section -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">Employees List</div>
+              <div class="card-body">
+                <ul class="list-unstyled">
+                  <li *ngFor="let employee of employees">
+                    <i class="fas fa-user"></i> {{ employee }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Project Section -->
+      <div *ngIf="selectedSection === 'createProject'">
+        <h2>Create New Project</h2>
+        <div class="form-group">
+          <label for="projectName">Project Name</label>
+          <input type="text" id="projectName" class="form-control" [(ngModel)]="newProject.name">
+        </div>
+        <div class="form-group mt-2">
+          <label for="projectDescription">Project Description</label>
+          <textarea id="projectDescription" class="form-control" [(ngModel)]="newProject.description"></textarea>
+        </div>
+        <button class="btn btn-success mt-3" (click)="saveProject()">Save Project</button>
+      </div>
+
+      <!-- My Projects Section -->
+      <div *ngIf="selectedSection === 'myProjects'">
+        <h2>My Projects</h2>
+        <div *ngFor="let project of projects" class="mt-3">
+          <div class="card">
+            <div class="card-body" (click)="viewProject(project)">
+              <h5>{{ project.name }}</h5>
+              <p>{{ project.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
-
+</div>
