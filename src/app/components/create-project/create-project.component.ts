@@ -1,51 +1,46 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Project {
   name: string;
   description: string;
 }
 
-
 @Component({
   selector: 'app-create-project',
   templateUrl: './create-project.component.html',
-  styleUrl: './create-project.component.css'
+  styleUrls: ['./create-project.component.css']
 })
-export class CreateProjectComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-projects: any;
-deleteProject(_t28: any) {
-throw new Error('Method not implemented.');
-}
-  
-  newProject = {
-    name: '',
-    description: ''
-  };
+export class CreateProjectComponent implements OnInit {
+  projectForm!: FormGroup; // Definite assignment assertion
+  projectList: Project[] = [];
+  showModal: boolean = false;
 
-  // List to store created projects
-  projectList: Array<{name: string, description: string}> = [];
+  constructor(private fb: FormBuilder) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.projectForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required]
+    });
+  }
 
-  // Function to create a new project and add to the list
-  createProject() {
-    // Check if both name and description are filled
-    if (this.newProject.name && this.newProject.description) {
-      // Add the new project to the list
-      this.projectList.push({ 
-        name: this.newProject.name, 
-        description: this.newProject.description 
-      });
+  addProject(): void {
+    if (this.projectForm.valid) {
+      const newProject: Project = this.projectForm.value;
+      this.projectList.push(newProject);
+      this.projectForm.reset();
+      this.toggleModal();
+    }
+  }
 
-      // Clear the form
-      this.newProject.name = '';
-      this.newProject.description = '';
+  toggleModal(): void {
+    this.showModal = !this.showModal;
+  }
+
+  deleteProject(index: number): void {
+    if (index > -1) {
+      this.projectList.splice(index, 1);
     }
   }
 }
