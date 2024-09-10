@@ -251,6 +251,7 @@ export class RegisterComponent {
         this.registerservice.postData(this.model).subscribe({
           next: (response) => {
             console.log('Registration successful', response);
+            this.registerForm.reset();
           },
           error: (err) => {
             console.error('Registration failed', err);
