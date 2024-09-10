@@ -1,7 +1,12 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
+interface Project {
+  name: string;
+  description: string;
+}
 
 
 @Component({
@@ -10,37 +15,34 @@ import { Component } from '@angular/core';
   styleUrl: './create-project.component.css'
 })
 export class CreateProjectComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-projects: any;
-deleteProject(_t28: any) {
-throw new Error('Method not implemented.');
-}
-  
-  newProject = {
-    name: '',
-    description: ''
-  };
 
-  // List to store created projects
-  projectList: Array<{name: string, description: string}> = [];
+  projects: Project[] = [];  // Array to hold project data
+  showModal: boolean = false;  // Modal visibility state
+  projectForm: FormGroup;  // Form for adding new project
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {
+    // Initialize form with validation
+    this.projectForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required]
+    });
+  }
 
-  // Function to create a new project and add to the list
-  createProject() {
-    // Check if both name and description are filled
-    if (this.newProject.name && this.newProject.description) {
-      // Add the new project to the list
-      this.projectList.push({ 
-        name: this.newProject.name, 
-        description: this.newProject.description 
-      });
+  // Method to toggle modal
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
 
-      // Clear the form
-      this.newProject.name = '';
-      this.newProject.description = '';
+  // Method to handle new project creation
+  addProject() {
+    if (this.projectForm.valid) {
+      const newProject: Project = {
+        name: this.projectForm.get('name')?.value,
+        description: this.projectForm.get('description')?.value
+      };
+      this.projects.push(newProject);  // Add new project to list
+      this.projectForm.reset();  // Reset form
+      this.toggleModal();  // Close modal
     }
   }
 }
