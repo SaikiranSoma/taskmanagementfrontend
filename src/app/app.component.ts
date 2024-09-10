@@ -27,6 +27,15 @@ export class AppComponent implements OnInit {
         else if (event.url === '/dashboard') {
           this.showNavbar = false; // Hide the navbar on the dashboard page
         }
+        else if (event.url === '/dashboard/create-project') {
+          this.showNavbar = false; // Hide the navbar on the createproject page
+        }
+        else if (event.url === '/dashboard/my-projects') {
+          this.showNavbar = false; // Hide the navbar on the myprojects page
+        }
+        else if (event.url === '/dashboard/maindashboard') {
+          this.showNavbar = false; // Hide the navbar on the myprojects page
+        }
         else {
           this.showNavbar = true;  // Show the navbar on all other pages
         }

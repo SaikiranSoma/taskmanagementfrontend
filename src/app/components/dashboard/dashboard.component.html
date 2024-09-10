@@ -1,57 +1,45 @@
-  <!-- <div class="container mt-4">
-    <h2 class="text-center mb-4">Task Management Dashboard</h2>
-  
-    <div class="row">
-       To Do Column 
-      <div class="col-md-4">
-        <h4>To Do</h4>
-        <div cdkDropList id="todo" class="task-column bg-light p-3" cdkDropListConnectedTo="inprogress completed" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of todo" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-info">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
+<div class="container-fluid p-0">
+  <nav class="navbar">
+    <div class="right-section">
+      <div class="profile-section">
+        <button class="profile-button" (click)="toggleDropdown()">
+          <span>{{ userName.charAt(0) }}</span>
+        </button>
+        <div class="profile-dropdown" *ngIf="isDropdownOpen">
+          <p>{{ userName }}</p>
+          <p>{{ userEmail }}</p>
+          <button class="signout-button" (click)="signOut()">Sign out</button>
         </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('todo')">Add Task</button>
-      </div>
-  
-      
-      <div class="col-md-4">
-        <h4>In Progress</h4>
-        <div cdkDropList id="inprogress" class="task-column bg-light p-3" cdkDropListConnectedTo="todo completed" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of inprogress" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-success">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('inprogress')">Add Task</button>
-      </div>
-  
-      
-      <div class="col-md-4">
-        <h4>Completed</h4>
-        <div cdkDropList id="completed" class="task-column bg-light p-3" cdkDropListConnectedTo="todo inprogress" (cdkDropListDropped)="drop($event)">
-          <div class="task" *ngFor="let task of completed" cdkDrag>
-            <div class="card mb-2">
-              <div class="card-body">
-                <h5 class="card-title">{{ task.name }}</h5>
-                <p class="card-text"><span class="badge bg-primary">{{ task.priority }}</span> <span class="badge bg-warning">{{ task.status }}</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-outline-primary mt-3" (click)="addTask('completed')">Add Task</button>
       </div>
     </div>
+  </nav>
+  
+  
+
+  <div class="row no-gutters" style="height: calc(100vh - 56px);">
+    <!-- Left Side Nav Bar -->
+    <div class="col-12 col-md-3 col-lg-2 bg-dark sidebar p-3 d-flex flex-column">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/dashboard/maindashboard" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/dashboard/create-project" routerLinkActive="active">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/dashboard/my-projects" routerLinkActive="active">Tasks</a>
+        </li>
+      </ul>
+    </div>
+
+
+    
+    <!-- Main Content Area -->
+    <div class="col-12 col-md-9 col-lg-10 p-4">
+      
+      <router-outlet>
+    
+      </router-outlet>
+    </div>
   </div>
-     -->
-
-
-     <h1>DashBoard</h1>
+</div>

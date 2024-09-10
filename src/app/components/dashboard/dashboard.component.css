@@ -1,20 +1,97 @@
-.task-column {
-    min-height: 300px;
-    border: 2px solid #dee2e6;
-    border-radius: 5px;
-    padding: 10px;
+/* Basic navbar styling */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: black;
+  padding: 5px 15px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-button {
+  background-color: #a16eff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.profile-button span {
+  display: block;
+  text-align: center;
+  line-height: 40px;
+}
+
+.profile-dropdown {
+  background-color: #fff;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 200px;
+  padding: 15px;
+  text-align: left;
+}
+
+.profile-dropdown p {
+  margin: 0;
+  padding: 5px 0;
+  color: #333;
+}
+
+.signout-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.signout-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive behavior */
+
+
+
+
+
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .profile-dropdown {
+    right: 10px;
+    top: 50px;
+    width: 150px;
   }
-  
-  .task {
-    cursor: grab;
+  .sidebar {
+    position: relative;
+    height: auto;
   }
-  
-  .task .card {
-    background-color: #f8f9fa;
-  }
-  
-  h4 {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  
+}
+
+
+.dropdown-menu {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}

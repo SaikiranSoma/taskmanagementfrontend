@@ -9,6 +9,10 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MyProjectsComponent } from './components/tasks/my-projects.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MaindashboardComponent } from './components/maindashboard/maindashboard.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HomeComponent,
     LoginComponent,
     DashboardComponent,
+    MyProjectsComponent,
+    CreateProjectComponent,
+    MaindashboardComponent,
     
   ],
   imports: [
@@ -25,7 +32,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    
+    DragDropModule
     
   ],
   providers: [],
