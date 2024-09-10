@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container">
   <h2 class="text-center mb-4">Task Management Dashboard</h2>
   <div class="row">
     <div class="col-md-4">
@@ -7,6 +7,7 @@
         cdkDropList
         id="todo"
         class="task-column bg-light p-3"
+        [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="['inprogress', 'completed']"
         (cdkDropListDropped)="drop($event)"
       >
@@ -14,14 +15,19 @@
           <div class="card mb-2">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
-              <p class="card-text">
+              <div class="card-text">
                 <span class="badge bg-primary">{{ task.priority }}</span>
                 <span class="badge bg-info">{{ task.status }}</span>
-              </p>
+                <div>{{ task.description }}</div>
+                <div><strong>Due Date:</strong> {{ task.dueDate }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskName" placeholder="Task Name">
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskDescription" placeholder="Task Description">
+      <input type="date" class="form-control mb-2" [(ngModel)]="newTaskDueDate">
       <button class="btn btn-outline-primary mt-3" (click)="addTask('todo')">Add Task</button>
     </div>
     <div class="col-md-4">
@@ -30,6 +36,7 @@
         cdkDropList
         id="inprogress"
         class="task-column bg-light p-3"
+        [cdkDropListData]="inprogress"
         [cdkDropListConnectedTo]="['todo', 'completed']"
         (cdkDropListDropped)="drop($event)"
       >
@@ -37,14 +44,19 @@
           <div class="card mb-2">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
-              <p class="card-text">
+              <div class="card-text">
                 <span class="badge bg-primary">{{ task.priority }}</span>
                 <span class="badge bg-success">{{ task.status }}</span>
-              </p>
+                <div>{{ task.description }}</div>
+                <div><strong>Due Date:</strong> {{ task.dueDate }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskName" placeholder="Task Name">
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskDescription" placeholder="Task Description">
+      <input type="date" class="form-control mb-2" [(ngModel)]="newTaskDueDate">
       <button class="btn btn-outline-primary mt-3" (click)="addTask('inprogress')">Add Task</button>
     </div>
     <div class="col-md-4">
@@ -53,6 +65,7 @@
         cdkDropList
         id="completed"
         class="task-column bg-light p-3"
+        [cdkDropListData]="completed"
         [cdkDropListConnectedTo]="['todo', 'inprogress']"
         (cdkDropListDropped)="drop($event)"
       >
@@ -60,14 +73,19 @@
           <div class="card mb-2">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
-              <p class="card-text">
+              <div class="card-text">
                 <span class="badge bg-primary">{{ task.priority }}</span>
                 <span class="badge bg-warning">{{ task.status }}</span>
-              </p>
+                <div>{{ task.description }}</div>
+                <div><strong>Due Date:</strong> {{ task.dueDate }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskName" placeholder="Task Name">
+      <input type="text" class="form-control mb-2" [(ngModel)]="newTaskDescription" placeholder="Task Description">
+      <input type="date" class="form-control mb-2" [(ngModel)]="newTaskDueDate">
       <button class="btn btn-outline-primary mt-3" (click)="addTask('completed')">Add Task</button>
     </div>
   </div>
