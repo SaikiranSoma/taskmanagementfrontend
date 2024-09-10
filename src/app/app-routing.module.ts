@@ -17,7 +17,9 @@ const routes: Routes = [
     {path:'create-project', component:CreateProjectComponent},
     {path:'my-projects', component:MyProjectsComponent},
     {path:'maindashboard', component:MaindashboardComponent},
-  ]},
+  ]
+
+},
   
   
   { path: '', redirectTo: '/home', pathMatch: 'full' }
