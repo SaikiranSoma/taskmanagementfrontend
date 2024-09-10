@@ -7,12 +7,13 @@
         </button>
         <div class="profile-dropdown" *ngIf="isDropdownOpen">
           <p>{{ userName }}</p>
-          <p>{{ userEmail }}</p>
+          <p>{{ userTimezone }}</p>
           <button class="signout-button" (click)="signOut()" routerLink="/login">Sign out</button>
         </div>
       </div>
     </div>
   </nav>
+  
   
   
 
