@@ -11,7 +11,7 @@ import { MaindashboardService } from '../../services/maindashboard.service';
 export class MaindashboardComponent {
   peopleList: any[] = [];
   projectList: any[] = [];
-  greeting: string = 'Hello'; // Dynamic greeting if needed
+  greeting: string = 'Hello'; 
   collaboratorsCount: number = 0;
 
   constructor(private mainDashboardService: MaindashboardService) { }
@@ -24,7 +24,6 @@ export class MaindashboardComponent {
   loadEmployees(): void {
     this.mainDashboardService.getEmployees().subscribe(
       (response) => {
-        // Map the response to use employeeName
         this.peopleList = response.map((employee: any) => ({ name: employee.employeeName }));
         this.collaboratorsCount = this.peopleList.length;
       },
@@ -38,7 +37,7 @@ export class MaindashboardComponent {
   loadProjects(): void {
     this.mainDashboardService.getProjects().subscribe(
       (response) => {
-        console.log('Projects Response:', response);  // Log response to verify structure
+        console.log('Projects Response:', response); 
         this.projectList = response.map((project: any) => ({ name: project.projectName }));
       },
       (error) => {

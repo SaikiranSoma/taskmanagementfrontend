@@ -49,18 +49,18 @@ export class LoginComponent {
           if (response.token) {
             this.invalidLogin = false;
             console.log('Login successful', response);
-            // Store the token
+            
             localStorage.setItem('token', response.token);
             const roles = response.roles;
             if (roles.includes('Manager')) {
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/dashboard/maindashboard']);
               console.log('User is an Admin');
             } else if (roles.includes('Employee')) {
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/dashboard/maindashboard']);
               console.log('User is a Resident');
             }
           } else {
-            this.invalidLogin = true;  // Handle unexpected cases
+            this.invalidLogin = true;  
           }
         },
         error: (error) => {

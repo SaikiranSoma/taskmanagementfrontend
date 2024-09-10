@@ -16,7 +16,7 @@ h4 {
 }
 .task-column {
     height: 300px;
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto; 
 }
 .card {
     max-height: 150px;

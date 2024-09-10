@@ -1,20 +1,20 @@
-/* Full-screen container with two parts */
+
 .container-fluid {
     display: flex;
     height: 100vh;
     padding: 0;
   }
   
-  /* Left side */
+ 
   .bg-primary {
-    background-color: #0023B4; /* Blue background */
+    background-color: #0023B4; 
   }
   
   img {
-    max-width: 80%; /* Adjust the width of your illustration */
+    max-width: 80%; 
   }
   
-  /* Right side form styling */
+  
   .card {
     max-width: 400px;
     width: 100%;

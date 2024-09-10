@@ -1,11 +1,15 @@
 <div class="container-fluid p-0">
   <nav class="navbar">
     <div class="right-section">
+      <div class="greeting-section">
+        <span>{{ userInitial }}!</span>
+      </div>
       <div class="profile-section">
         <button class="profile-button" (click)="toggleDropdown()">
-          <span>{{ userName.charAt(0) }}</span>
+          <span>{{ userInitial }}</span>
         </button>
         <div class="profile-dropdown" *ngIf="isDropdownOpen">
+          <p>   </p>
           <p>{{ userName }}</p>
           <p>{{ userTimezone }}</p>
           <button class="signout-button" (click)="signOut()" routerLink="/login">Sign out</button>
@@ -13,9 +17,6 @@
       </div>
     </div>
   </nav>
-  
-  
-  
 
   <div class="row no-gutters" style="height: calc(100vh - 56px);">
     <!-- Left Side Nav Bar -->
@@ -33,14 +34,9 @@
       </ul>
     </div>
 
-
-    
     <!-- Main Content Area -->
     <div class="col-12 col-md-9 col-lg-10 p-4">
-      
-      <router-outlet>
-    
-      </router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

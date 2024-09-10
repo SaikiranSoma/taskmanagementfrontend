@@ -16,27 +16,37 @@ export class DashboardComponent implements OnInit {
   userName: string = '';
   userTimezone: string = '';
   isDropdownOpen: boolean = false;
+  userInitial:string=' '
 
   ngOnInit() {
     this.loadUserDetails();
   }
 
   loadUserDetails() {
-    // Assuming the token is stored in local storage and is a JSON string.
     const token = localStorage.getItem('token');
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode token payload
-      this.userName = decodedToken.userName;  // Assuming the token contains userName
-      this.userTimezone = decodedToken.timezone;  // Assuming the token contains timezone
+      const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+      console.log(decodedToken); 
+      for (const key in decodedToken) {
+        if (key.endsWith('/claims/name')) {  
+          this.userName = decodedToken[key];
+        } else if (key.endsWith('/claims/country')) {  
+          this.userTimezone = decodedToken[key];
+        }
+      }
+      this.userInitial = this.userName.charAt(0).toUpperCase();
+      console.log(this.userName);  
+      console.log(this.userTimezone);
+      console.log(this.userInitial)  
     }
   }
+  
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   signOut() {
-    // Implement sign-out logic here, like removing the token from local storage
     localStorage.removeItem('token');
     console.log('Signed out');
   }

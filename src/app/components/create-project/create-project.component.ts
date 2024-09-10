@@ -23,22 +23,22 @@ throw new Error('Method not implemented.');
     description: ''
   };
 
-  // List to store created projects
+  
   projectList: Array<{name: string, description: string}> = [];
 
   constructor() {}
 
-  // Function to create a new project and add to the list
+  
   createProject() {
-    // Check if both name and description are filled
+   
     if (this.newProject.name && this.newProject.description) {
-      // Add the new project to the list
+      
       this.projectList.push({ 
         name: this.newProject.name, 
         description: this.newProject.description 
       });
 
-      // Clear the form
+      
       this.newProject.name = '';
       this.newProject.description = '';
     }

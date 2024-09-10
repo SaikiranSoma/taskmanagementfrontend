@@ -1,11 +1,11 @@
 .navbar-nav {
-    flex-direction: row; /* Ensure items are in a row */
+    flex-direction: row; 
   }
   
   .navbar-nav .nav-item {
-    margin-left: 10px; /* Adjust spacing between items */
+    margin-left: 10px; 
   }
   
   .navbar-toggler {
-    border: none; /* Optional: Remove border around toggler button */
+    border: none; 
   }

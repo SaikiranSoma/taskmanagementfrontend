@@ -17,27 +17,27 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Check if the current route is registration page
+        
         if (event.url === '/register') {
-          this.showNavbar = false; // Hide the navbar on the registration page
+          this.showNavbar = false; 
         } 
         else if (event.url === '/login') {
-          this.showNavbar = false; // Hide the navbar on the login page
+          this.showNavbar = false;
         }
         else if (event.url === '/dashboard') {
-          this.showNavbar = false; // Hide the navbar on the dashboard page
+          this.showNavbar = false; 
         }
         else if (event.url === '/dashboard/create-project') {
-          this.showNavbar = false; // Hide the navbar on the createproject page
+          this.showNavbar = false; 
         }
         else if (event.url === '/dashboard/my-projects') {
-          this.showNavbar = false; // Hide the navbar on the myprojects page
+          this.showNavbar = false; 
         }
         else if (event.url === '/dashboard/maindashboard') {
-          this.showNavbar = false; // Hide the navbar on the myprojects page
+          this.showNavbar = false; 
         }
         else {
-          this.showNavbar = true;  // Show the navbar on all other pages
+          this.showNavbar = true;  
         }
       }
     });
