@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <!-- Greeting Section -->
   <div class="text-center mb-4">
-    <h3>{{ greeting }}, Saikiran</h3>
+    <h3>{{ greeting }}</h3>
     <button class="btn btn-outline-secondary dropdown-toggle" type="button">
       My week
     </button>
@@ -11,7 +11,6 @@
     <button class="btn btn-outline-secondary" type="button">
       {{ collaboratorsCount }} collaborator{{ collaboratorsCount !== 1 ? 's' : '' }}
     </button>
-    
   </div>
 
   <!-- Card Section -->
@@ -23,6 +22,7 @@
           <h5 class="card-title">People</h5>
         </div>
         <div class="card-body">
+          <!-- Loop through the peopleList -->
           <div class="d-flex align-items-center mb-2" *ngFor="let person of peopleList">
             <div class="avatar-circle mr-3">
               <span class="initials">{{ getInitials(person.name) }}</span>
@@ -31,7 +31,8 @@
               <h6 class="mb-0">{{ person.name }}</h6>
             </div>
           </div>
-          <button class="btn btn-outline-secondary">+ Invite</button>
+          <!-- Conditionally render invite button if there are collaborators -->
+          <button class="btn btn-outline-secondary" *ngIf="peopleList.length > 0">+ Invite</button>
         </div>
       </div>
     </div>
@@ -43,6 +44,7 @@
           <h5 class="card-title">Projects</h5>
         </div>
         <div class="card-body">
+          <!-- Loop through the projectList -->
           <div class="d-flex align-items-center mb-2" *ngFor="let project of projectList">
             <div class="project-icon mr-3">
               <i class="fas fa-tasks"></i>
@@ -51,6 +53,7 @@
               <h6 class="mb-0">{{ project.name }}</h6>
             </div>
           </div>
+          <!-- Link to create a new project -->
           <button class="btn btn-outline-secondary" routerLink="/dashboard/create-project">+ Create Project</button>
         </div>
       </div>
