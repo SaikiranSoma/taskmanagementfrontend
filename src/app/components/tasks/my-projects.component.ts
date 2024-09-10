@@ -5,29 +5,35 @@ import { Tasks } from '../../models/task';
 @Component({
   selector: 'app-my-projects',
   templateUrl: './my-projects.component.html',
-  styleUrl: './my-projects.component.css'
+  styleUrls: ['./my-projects.component.css']
 })
 export class MyProjectsComponent {
- 
-  
+  // Arrays for each task status
   todo: Tasks[] = [
-    { name: 'Development', description: 'Complete feature A', dueDate: '2024-09-10', priority: 'High', status: 'To Do' }
+    { name: 'Development', description: 'Complete feature A', dueDate: '2024-09-10', priority: 'High', status: 'To Do', assignedTo: 'John Doe' }
   ];
+
   inprogress: Tasks[] = [
-    { name: 'Testing Project', description: 'Test the application', dueDate: '2024-09-12', priority: 'Medium', status: 'In Progress' }
+    { name: 'Testing Project', description: 'Test the application', dueDate: '2024-09-12', priority: 'Medium', status: 'In Progress', assignedTo: 'Jane Doe' }
   ];
+
   completed: Tasks[] = [
-    { name: 'Bug Fix', description: 'Fix bug B', dueDate: '2024-09-05', priority: 'Low', status: 'Completed' }
+    { name: 'Bug Fix', description: 'Fix bug B', dueDate: '2024-09-05', priority: 'Low', status: 'Completed', assignedTo: 'Alice Smith' }
   ];
+
+  // Fields for the new task to be added
   newTaskName: string = '';
   newTaskDescription: string = '';
   newTaskDueDate: string = '';
+  assignedTo: string = ''; // New field for assignee
+
   // Function for drag and drop
   drop(event: CdkDragDrop<Tasks[]>) {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Data for one of the containers is undefined');
       return;
     }
+    
     if (event.previousContainer === event.container) {
       // Moving within the same list
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -39,6 +45,7 @@ export class MyProjectsComponent {
         event.previousIndex,
         event.currentIndex
       );
+
       // Update the priority and status based on the destination column
       const task = event.container.data[event.currentIndex];
       if (event.container.id === 'todo') {
@@ -53,16 +60,36 @@ export class MyProjectsComponent {
       }
     }
   }
-  // Add new task to specific status
+
+  // Add new task to a specific status
   addTask(status: string) {
-    if (this.newTaskName && this.newTaskDescription && this.newTaskDueDate) {
+    if (this.newTaskName && this.newTaskDescription && this.newTaskDueDate && this.assignedTo) {
+      let priority: string;
+      let taskStatus: string;
+
+      // Assign the correct status and priority based on the list
+      if (status === 'todo') {
+        priority = 'High';
+        taskStatus = 'To Do';
+      } else if (status === 'inprogress') {
+        priority = 'Medium';
+        taskStatus = 'In Progress';
+      } else {
+        priority = 'Low';
+        taskStatus = 'Completed';
+      }
+
+      // Create new task object
       const newTask: Tasks = {
         name: this.newTaskName,
         description: this.newTaskDescription,
         dueDate: this.newTaskDueDate,
-        priority: status === 'todo' ? 'High' : status === 'inprogress' ? 'Medium' : 'Low',
-        status: status === 'todo' ? 'To Do' : status === 'inprogress' ? 'In Progress' : 'Completed'
+        priority: priority,
+        status: taskStatus,
+        assignedTo: this.assignedTo
       };
+
+      // Add task to the appropriate list based on status
       if (status === 'todo') {
         this.todo.push(newTask);
       } else if (status === 'inprogress') {
@@ -70,10 +97,12 @@ export class MyProjectsComponent {
       } else if (status === 'completed') {
         this.completed.push(newTask);
       }
-      // Clear form fields
+
+      // Clear the input fields after adding the task
       this.newTaskName = '';
       this.newTaskDescription = '';
       this.newTaskDueDate = '';
+      this.assignedTo = '';
     }
   }
 }

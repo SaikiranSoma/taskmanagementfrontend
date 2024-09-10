@@ -1,0 +1,31 @@
+.task-column {
+    min-height: 300px;
+    border: 2px solid #DEE2E6;
+    border-radius: 5px;
+    padding: 10px;
+}
+.task {
+    cursor: grab;
+}
+.task .card {
+    background-color: #F8F9FA;
+}
+h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.task-column {
+    height: 300px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+.card {
+    max-height: 150px;
+    overflow-y: hidden;
+}
+.cdk-drag-preview {
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 1000;
+}
