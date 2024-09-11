@@ -13,12 +13,29 @@ export class MaindashboardComponent {
   projectList: any[] = [];
   greeting: string = 'Hello'; 
   collaboratorsCount: number = 0;
+  userName: any;
 
   constructor(private mainDashboardService: MaindashboardService) { }
 
   ngOnInit(): void {
+    this.loadUserDetails();
     this.loadEmployees();
     this.loadProjects();
+  }
+
+
+  loadUserDetails(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+      for (const key in decodedToken) {
+        if (key.endsWith('/claims/name')) {
+          this.userName = decodedToken[key];
+        }
+      }
+      // Update the greeting message with the user's name
+      this.greeting = `Hello, ${this.userName}`;
+    }
   }
 
   loadEmployees(): void {
