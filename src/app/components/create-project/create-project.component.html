@@ -4,10 +4,9 @@
   <!-- Project Cards -->
   <div class="project-grid">
     <div *ngFor="let project of projectList; let i = index" class="project-card">
-      <h3>{{ project.name }}</h3>
-      <p>{{ project.description }}</p>
-      <button class="btn btn-primary" (click)="deleteProject(i)">Delete</button>
-    </div>
+      <h3>{{ project.projectName }}</h3> <!-- Use ProjectName if backend sends ProjectName -->
+      <p>{{ project.projectDescription }}</p> <!-- Use ProjectDescription if backend sends ProjectDescription -->
+    </div>    
   </div>
 
   <!-- Add New Project Button -->
@@ -18,11 +17,21 @@
     <div class="modal-content">
       <h2>Add New Project</h2>
       <form [formGroup]="projectForm" (ngSubmit)="addProject()">
-        <label for="name">Project Name:</label>
-        <input type="text" id="name" formControlName="name" />
+        <div class="form-group">
+          <label for="name">Project Name:</label>
+          <input type="text" id="name" formControlName="name" class="form-control" />
+          <div *ngIf="projectForm.get('name')?.invalid && projectForm.get('name')?.touched" class="error-message">
+            Project name is required
+          </div>
+        </div>
 
-        <label for="description">Project Description:</label>
-        <textarea id="description" formControlName="description"></textarea>
+        <div class="form-group">
+          <label for="description">Project Description:</label>
+          <textarea id="description" formControlName="description" class="form-control"></textarea>
+          <div *ngIf="projectForm.get('description')?.invalid && projectForm.get('description')?.touched" class="error-message">
+            Project description is required
+          </div>
+        </div>
 
         <button type="submit" class="submit-btn" [disabled]="!projectForm.valid">Add Project</button>
         <button type="button" class="close-btn" (click)="toggleModal()">Close</button>

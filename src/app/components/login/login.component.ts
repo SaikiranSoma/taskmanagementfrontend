@@ -17,7 +17,8 @@ export class LoginComponent {
   }
   submitted:boolean=false;
   loginForm: FormGroup=null!;
-  invalidLogin: boolean=true;
+  invalidLogin: boolean=false;
+  errorMessage: string = '';
   constructor(private fb:FormBuilder,private loginservice:LoginService,private router:Router){}
   ngOnInit(): void{
     this.loginForm=this.fb.group({
@@ -39,32 +40,34 @@ export class LoginComponent {
       this.loginForm.get(input)?.dirty)
     }
 
-    onLogin(){
-      this.login={
-        UserName:this.loginForm.value.username,
-        Password:this.loginForm.value.password
-      }
+    onLogin() {
+      this.login = {
+        UserName: this.loginForm.value.username,
+        Password: this.loginForm.value.password
+      };
       this.loginservice.postData(this.login).subscribe({
         next: (response: LoginResponse) => {
           if (response.token) {
             this.invalidLogin = false;
             console.log('Login successful', response);
-            
+  
             localStorage.setItem('token', response.token);
             const roles = response.roles;
             if (roles.includes('Manager')) {
               this.router.navigate(['/dashboard/maindashboard']);
-              console.log('User is an Admin');
+              console.log('User is a Manager');
             } else if (roles.includes('Employee')) {
               this.router.navigate(['/dashboard/maindashboard']);
-              console.log('User is a Resident');
+              console.log('User is an Employee');
             }
           } else {
-            this.invalidLogin = true;  
+            this.invalidLogin = true;
+            this.errorMessage = 'Invalid Username or Password';
           }
         },
         error: (error) => {
           this.invalidLogin = true;
+          this.errorMessage = 'Invalid Username or Password';
           console.error('Login failed', error);
         }
       });

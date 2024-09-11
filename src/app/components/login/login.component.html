@@ -4,28 +4,36 @@
       <div class="mb-4 text-center">
         <h3>Login</h3>
       </div>
+      
       <div class="mb-4">
         <label for="username" class="form-label">User Name</label>
         <input type="text" id="username" placeholder="Enter your name" class="form-control"
-        formControlName="username" 
-        [class.is-invalid]="validateControl('username')">
+          formControlName="username"
+          [class.is-invalid]="validateControl('username')">
         <span *ngIf="validateControlError('username', 'required')" class="text-danger">
-          Username Is Mandatory
-       </span>
+          Username is mandatory
+        </span>
       </div>
 
       <div class="mb-4">
         <label for="inputPassword5" class="form-label">Password</label>
-        <input type="password" id="inputPassword5" placeholder="Enter your password" class="form-control" 
-        [class.is-invalid]="validateControl('password')" formControlName="password" >
+        <input type="password" id="inputPassword5" placeholder="Enter your password" class="form-control"
+          [class.is-invalid]="validateControl('password')" formControlName="password">
         <span *ngIf="validateControlError('password', 'required')" class="text-danger">
-          Password Is Mandatory
+          Password is mandatory
         </span>
+      </div>
+
+      <!-- Error message for invalid login -->
+      <div *ngIf="invalidLogin" class="mb-4 text-center">
+        <div class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <div class="mb-2">
         <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
-        <p class="text-center mt-1">Dont have an account? <a routerLink="/register">Register</a></p>
+        <p class="text-center mt-1">Don't have an account? <a routerLink="/register">Register</a></p>
       </div>
     </form>
   </div>
