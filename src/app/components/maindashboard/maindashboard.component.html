@@ -6,7 +6,7 @@
       My week
     </button>
     <button class="btn btn-outline-info mx-2" type="button">
-      0 tasks completed
+       Tasks completed
     </button>
     <button class="btn btn-outline-info" type="button">
       {{ collaboratorsCount }} collaborator{{ collaboratorsCount !== 1 ? 's' : '' }}
@@ -44,8 +44,8 @@
           <h5 class="card-title">Projects</h5>
         </div>
         <div class="card-body">
-          <!-- Loop through the projectList -->
-          <div class="d-flex align-items-center mb-2" *ngFor="let project of projectList">
+          <!-- Loop through the projectList and handle the click -->
+          <div class="d-flex align-items-center mb-2 project-item" *ngFor="let project of projectList" (click)="onProjectClick(project.id)">
             <div class="project-icon mr-3">
               <i class="bi bi-person-workspace"></i>
             </div>

@@ -7,14 +7,15 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class MaindashboardService {
 
-  private employeesUrl = 'http://localhost:5123/project/4/employees';
   private apiUrl = 'http://localhost:5123/employee/projects/tasks';
 
   constructor(private http: HttpClient) { }
 
-  getEmployees(): Observable<any> {
-    return this.http.get<any>(this.employeesUrl);
+  getEmployeesByProject(projectId: number): Observable<any[]> {
+    const url = `http://localhost:5123/project/${projectId}/employees`;
+    return this.http.get<any[]>(url);
   }
+  
 
   getProjects(): Observable<any> {
     const token = localStorage.getItem('token'); 

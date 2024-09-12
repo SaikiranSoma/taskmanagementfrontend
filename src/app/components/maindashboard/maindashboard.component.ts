@@ -1,14 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MaindashboardService } from '../../services/maindashboard.service';
-
 
 @Component({
   selector: 'app-maindashboard',
   templateUrl: './maindashboard.component.html',
-  styleUrl: './maindashboard.component.css'
+  styleUrls: ['./maindashboard.component.css']
 })
-export class MaindashboardComponent {
+export class MaindashboardComponent implements OnInit {
   peopleList: any[] = [];
   projectList: any[] = [];
   greeting: string = 'Hello'; 
@@ -19,10 +17,8 @@ export class MaindashboardComponent {
 
   ngOnInit(): void {
     this.loadUserDetails();
-    this.loadEmployees();
     this.loadProjects();
   }
-
 
   loadUserDetails(): void {
     const token = localStorage.getItem('token');
@@ -33,13 +29,14 @@ export class MaindashboardComponent {
           this.userName = decodedToken[key];
         }
       }
-      // Update the greeting message with the user's name
+      
       this.greeting = `Hello, ${this.userName}`;
     }
   }
 
-  loadEmployees(): void {
-    this.mainDashboardService.getEmployees().subscribe(
+  
+  loadEmployees(projectId: number): void {
+    this.mainDashboardService.getEmployeesByProject(projectId).subscribe(
       (response) => {
         this.peopleList = response.map((employee: any) => ({ name: employee.employeeName }));
         this.collaboratorsCount = this.peopleList.length;
@@ -49,19 +46,31 @@ export class MaindashboardComponent {
       }
     );
   }
-  
 
+  
   loadProjects(): void {
     this.mainDashboardService.getProjects().subscribe(
       (response) => {
         console.log('Projects Response:', response); 
-        this.projectList = response.map((project: any) => ({ name: project.projectName }));
+        this.projectList = response.map((project: any) => ({ id: project.projectId, name: project.projectName }));
       },
       (error) => {
         console.error('Error fetching projects:', error);
       }
     );
   }
+
+  
+  onProjectClick(projectId: number): void {
+    
+    if (projectId) {
+      this.loadEmployees(projectId);  
+      console.log('Project clicked: ', projectId);
+    } else {
+      console.error('Project ID is undefined');
+    }
+  }
+
   
   getInitials(name: string): string {
     const initials = name.split(' ').map(n => n[0]).join('');
