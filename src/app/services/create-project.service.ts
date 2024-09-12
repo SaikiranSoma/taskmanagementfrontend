@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Project } from '../Models/project';
+import { Tasks } from '../Models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,13 @@ import { Project } from '../Models/project';
 export class ProjectService {
   private tasksUrl = 'http://localhost:5123/employee/projects/tasks'; 
   private addProjectUrl = 'http://localhost:5123/project'; 
+  private baseUrl='http://localhost:5123';
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all projects and tasks
+  
   getAllProjectsAndTasks(): Observable<Project[]> {
-    const token = localStorage.getItem('token'); // Assuming you store your token in localStorage
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -22,13 +24,35 @@ export class ProjectService {
     return this.http.get<Project[]>(this.tasksUrl, { headers });
   }
 
-  // Add a new project
+  
   addProject(project: Project): Observable<Project> {
-    const token = localStorage.getItem('token'); // Get token from localStorage
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<Project>(this.addProjectUrl, project, { headers });
+  }
+
+  addTask(task: any): Observable<any> {
+    const token = localStorage.getItem('token'); // Retrieve the JWT token  
+    if (!token) {
+      console.error('No token found in local storage!');
+      return throwError('No token found');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    });
+    return this.http.post(`${this.baseUrl}/task`, task, { headers });
+  }
+  
+  
+  getEmployeesByProjectId(projectId: number): Observable<{ employeeName: string; timeZone: string }[]> {
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<Project>(this.addProjectUrl, project, { headers });
+    return this.http.get<{ employeeName: string; timeZone: string }[]>(`${this.baseUrl}/project/${projectId}/employees`, { headers });
   }
 }

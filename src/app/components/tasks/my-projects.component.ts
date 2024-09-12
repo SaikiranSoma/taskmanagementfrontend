@@ -30,18 +30,19 @@ export class MyProjectsComponent implements OnInit {
   };
 
   
-  assignees: string[] = ['Purushotham', 'SaiKiran', 'John Doe', 'Jane Smith'];
-
+  assignees: { employeeName: string; timeZone: string }[] = []; 
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
   ngOnInit(): void {
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadProjectTasks();
+    this.loadEmployees();  
   }
 
+  
   loadProjectTasks(): void {
-    this.projectService.getAllProjectsAndTasks().subscribe(
-      (projects: Project[]) => {
+    this.projectService.getAllProjectsAndTasks().subscribe({
+      next: (projects: Project[]) => {
         const project = projects.find(p => p.projectId === this.projectId);
         if (project) {
           this.projectName = project.projectName;
@@ -67,41 +68,83 @@ export class MyProjectsComponent implements OnInit {
           }
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading project tasks', error);
+      },
+      complete: () => {
+        console.log('Project loading complete');
       }
-    );
+    });
+  }
+
+  
+  loadEmployees(): void {
+    this.projectService.getEmployeesByProjectId(this.projectId).subscribe({
+      next: (employees: { employeeName: string; timeZone: string }[]) => {
+        this.assignees = employees; // Populate the assignees dropdown with employeeName and timeZone
+        console.log('Employees loaded successfully', this.assignees);
+      },
+      error: (error) => {
+        console.error('Error loading employees', error);
+      },
+      complete: () => {
+        console.log('Employee loading complete');
+      }
+    });
   }
 
   
   onAddTask(): void {
-    const newTaskToAdd: Tasks = { ...this.newTask };
-    this.todo.push(newTaskToAdd);
-  
     
-    this.newTask = {
-      taskName: '',
-      taskDescription: '',
-      dueDate: '',
-      status: 'Todo',
-      priority: 'High',
-      assignedTo: ''
+    const taskToAdd = {
+      TaskName: this.newTask.taskName,
+      TaskDescription: this.newTask.taskDescription,
+      DueDate: this.newTask.dueDate,
+      Status: 0, 
+      ProjectId: this.projectId,
+      AssignedTo: this.newTask.assignedTo  
     };
-  
+
     
-    const modalElement = document.getElementById('addTaskModal');
-    if (modalElement) {
-      const modalInstance = bootstrap.Modal.getInstance(modalElement); 
-      if (modalInstance) {
-        modalInstance.hide(); 
-      } else {
+    this.projectService.addTask(taskToAdd).subscribe({
+      next: (response) => {
+        console.log('Task added successfully', response);
+
+       
+        this.todo.push({
+          taskName: this.newTask.taskName,
+          taskDescription: this.newTask.taskDescription,
+          dueDate: this.newTask.dueDate,
+          status: 'Todo',  
+          priority: 'High',  
+          assignedTo: this.newTask.assignedTo
+        });
+
         
-        const newModal = new bootstrap.Modal(modalElement);
-        newModal.hide();
+        this.newTask = {
+          taskName: '',
+          taskDescription: '',
+          dueDate: '',
+          status: 'Todo',
+          priority: 'High',
+          assignedTo: ''
+        };
+
+        
+        const modalElement = document.getElementById('addTaskModal');
+        if (modalElement) {
+          const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          modalInstance?.hide();
+        }
+      },
+      error: (error) => {
+        console.error('Error adding task', error);
+      },
+      complete: () => {
+        console.log('Task addition complete');
       }
-    }
+    });
   }
-  
 
   
   mapPriority(status: string): string {

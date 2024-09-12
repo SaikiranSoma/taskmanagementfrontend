@@ -125,7 +125,7 @@
           <div class="mb-3">
             <label for="assignedTo" class="form-label">Assigned To</label>
             <select class="form-select" id="assignedTo" [(ngModel)]="newTask.assignedTo" name="assignedTo" required>
-              <option *ngFor="let person of assignees" [value]="person">{{ person }}</option>
+              <option *ngFor="let person of assignees" [value]="person.employeeName">{{ person.employeeName }}</option>
             </select>
           </div>
 
