@@ -92,3 +92,46 @@
     </div>
   </div>
 </div>
+
+<!-- Modal for Adding Task -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onAddTask()">
+          <!-- Task Name -->
+          <div class="mb-3">
+            <label for="taskName" class="form-label">Task Name</label>
+            <input type="text" class="form-control" id="taskName" [(ngModel)]="newTask.taskName" name="taskName" required>
+          </div>
+
+          <!-- Task Description -->
+          <div class="mb-3">
+            <label for="taskDescription" class="form-label">Task Description</label>
+            <textarea class="form-control" id="taskDescription" [(ngModel)]="newTask.taskDescription" name="taskDescription" required></textarea>
+          </div>
+
+          <!-- Due Date -->
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">Due Date</label>
+            <input type="date" class="form-control" id="dueDate" [(ngModel)]="newTask.dueDate" name="dueDate" required>
+          </div>
+
+          <!-- Assigned To (Dropdown) -->
+          <div class="mb-3">
+            <label for="assignedTo" class="form-label">Assigned To</label>
+            <select class="form-select" id="assignedTo" [(ngModel)]="newTask.assignedTo" name="assignedTo" required>
+              <option *ngFor="let person of assignees" [value]="person">{{ person }}</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

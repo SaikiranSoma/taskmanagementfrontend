@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../services/create-project.service';
-
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Project } from '../../Models/project';
 import { Tasks } from '../../Models/task';
+
+declare var bootstrap: any; 
 
 @Component({
   selector: 'app-my-projects',
@@ -16,38 +17,45 @@ export class MyProjectsComponent implements OnInit {
   todo: Tasks[] = [];
   inprogress: Tasks[] = [];
   completed: Tasks[] = [];
-  projectName:string=' ';
+  projectName: string = '';
+
+  
+  newTask: Tasks = {
+    taskName: '',
+    taskDescription: '',
+    dueDate: '',
+    status: 'Todo',
+    priority: 'High',
+    assignedTo: ''
+  };
+
+  
+  assignees: string[] = ['Purushotham', 'SaiKiran', 'John Doe', 'Jane Smith'];
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
-    
     this.loadProjectTasks();
   }
 
-  
   loadProjectTasks(): void {
     this.projectService.getAllProjectsAndTasks().subscribe(
       (projects: Project[]) => {
         const project = projects.find(p => p.projectId === this.projectId);
-  
         if (project) {
-          this.projectName = project.projectName; 
+          this.projectName = project.projectName;
           if (project.tasks) {
             project.tasks.forEach(task => {
-              console.log(task);
               const formattedTask: Tasks = {
-                taskName: task.taskName, 
-                taskDescription: task.taskDescription, 
+                taskName: task.taskName,
+                taskDescription: task.taskDescription,
                 dueDate: task.dueDate,
-                priority: this.mapPriority(task.status), 
-                status: this.mapStatus(task.status), 
-                assignedTo: task.assignedTo 
+                priority: this.mapPriority(task.status),
+                status: this.mapStatus(task.status),
+                assignedTo: task.assignedTo
               };
 
-              
               if (task.status === 'Todo') {
                 this.todo.push(formattedTask);
               } else if (task.status === 'InProgress') {
@@ -64,26 +72,53 @@ export class MyProjectsComponent implements OnInit {
       }
     );
   }
+
   
+  onAddTask(): void {
+    const newTaskToAdd: Tasks = { ...this.newTask };
+    this.todo.push(newTaskToAdd);
+  
+    
+    this.newTask = {
+      taskName: '',
+      taskDescription: '',
+      dueDate: '',
+      status: 'Todo',
+      priority: 'High',
+      assignedTo: ''
+    };
+  
+    
+    const modalElement = document.getElementById('addTaskModal');
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement); 
+      if (modalInstance) {
+        modalInstance.hide(); 
+      } else {
+        
+        const newModal = new bootstrap.Modal(modalElement);
+        newModal.hide();
+      }
+    }
+  }
+  
+
   
   mapPriority(status: string): string {
     if (status === 'Todo') return 'High';
     if (status === 'InProgress') return 'Medium';
     if (status === 'Completed') return 'Low';
-    return 'High'; 
+    return 'High';
   }
-  
-  
+
   mapStatus(status: string): string {
     if (status === 'Todo') return 'To Do';
     if (status === 'InProgress') return 'In Progress';
     if (status === 'Completed') return 'Completed';
-    return 'Unknown'; 
+    return 'Unknown';
   }
-  
 
-  
-  drop(event: CdkDragDrop<Tasks[]>) {
+  drop(event: CdkDragDrop<Tasks[]>): void {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Data for one of the containers is undefined');
       return;
