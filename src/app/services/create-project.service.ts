@@ -14,6 +14,15 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
+  updateTaskStatus(projectId: number, taskId: number, payload: { Status: number, TaskId: number }): Observable<any> {
+    const token = localStorage.getItem('token');  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.post(`${this.baseUrl}/task/${projectId}/status`, payload, { headers });
+  }
+  
   
   getAllProjectsAndTasks(): Observable<Project[]> {
     const token = localStorage.getItem('token'); 

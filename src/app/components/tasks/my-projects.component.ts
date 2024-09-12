@@ -21,6 +21,7 @@ export class MyProjectsComponent implements OnInit {
 
   
   newTask: Tasks = {
+    taskId: 0,
     taskName: '',
     taskDescription: '',
     dueDate: '',
@@ -31,6 +32,7 @@ export class MyProjectsComponent implements OnInit {
 
   
   assignees: { employeeName: string; timeZone: string }[] = []; 
+
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class MyProjectsComponent implements OnInit {
     this.loadEmployees();  
   }
 
-  
+ 
   loadProjectTasks(): void {
     this.projectService.getAllProjectsAndTasks().subscribe({
       next: (projects: Project[]) => {
@@ -49,6 +51,7 @@ export class MyProjectsComponent implements OnInit {
           if (project.tasks) {
             project.tasks.forEach(task => {
               const formattedTask: Tasks = {
+                taskId: task.taskId, 
                 taskName: task.taskName,
                 taskDescription: task.taskDescription,
                 dueDate: task.dueDate,
@@ -56,7 +59,7 @@ export class MyProjectsComponent implements OnInit {
                 status: this.mapStatus(task.status),
                 assignedTo: task.assignedTo
               };
-
+  
               if (task.status === 'Todo') {
                 this.todo.push(formattedTask);
               } else if (task.status === 'InProgress') {
@@ -81,7 +84,7 @@ export class MyProjectsComponent implements OnInit {
   loadEmployees(): void {
     this.projectService.getEmployeesByProjectId(this.projectId).subscribe({
       next: (employees: { employeeName: string; timeZone: string }[]) => {
-        this.assignees = employees; // Populate the assignees dropdown with employeeName and timeZone
+        this.assignees = employees; 
         console.log('Employees loaded successfully', this.assignees);
       },
       error: (error) => {
@@ -95,14 +98,13 @@ export class MyProjectsComponent implements OnInit {
 
   
   onAddTask(): void {
-    
     const taskToAdd = {
       TaskName: this.newTask.taskName,
       TaskDescription: this.newTask.taskDescription,
       DueDate: this.newTask.dueDate,
       Status: 0, 
       ProjectId: this.projectId,
-      AssignedTo: this.newTask.assignedTo  
+      AssignedTo: this.newTask.assignedTo 
     };
 
     
@@ -110,18 +112,20 @@ export class MyProjectsComponent implements OnInit {
       next: (response) => {
         console.log('Task added successfully', response);
 
-       
+        
         this.todo.push({
+          taskId: response.taskId,
           taskName: this.newTask.taskName,
           taskDescription: this.newTask.taskDescription,
           dueDate: this.newTask.dueDate,
-          status: 'Todo',  
-          priority: 'High',  
+          status: 'Todo', 
+          priority: 'High', 
           assignedTo: this.newTask.assignedTo
         });
 
         
         this.newTask = {
+          taskId: 0,
           taskName: '',
           taskDescription: '',
           dueDate: '',
@@ -161,6 +165,7 @@ export class MyProjectsComponent implements OnInit {
     return 'Unknown';
   }
 
+  
   drop(event: CdkDragDrop<Tasks[]>): void {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Data for one of the containers is undefined');
@@ -168,20 +173,43 @@ export class MyProjectsComponent implements OnInit {
     }
 
     if (event.previousContainer === event.container) {
+      
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
-      const task = event.container.data[event.currentIndex];
-      if (event.container.id === 'todo') {
-        task.priority = 'High';
-        task.status = 'To Do';
-      } else if (event.container.id === 'inprogress') {
-        task.priority = 'Medium';
-        task.status = 'In Progress';
+      const task = event.container.data[event.currentIndex]; 
+      let newStatus = 0; 
+
+     
+      if (event.container.id === 'inprogress') {
+        newStatus = 1; 
       } else if (event.container.id === 'completed') {
-        task.priority = 'Low';
-        task.status = 'Completed';
+        newStatus = 2; 
+      }
+
+      
+      task.status = this.mapStatus(newStatus === 0 ? 'Todo' : newStatus === 1 ? 'InProgress' : 'Completed');
+      task.priority = this.mapPriority(task.status); 
+      
+      if (task && task.taskId && this.projectId) {
+        const payload = {
+          Status: newStatus,
+          TaskId: task.taskId
+        };
+
+        
+        this.projectService.updateTaskStatus(this.projectId, task.taskId, payload).subscribe({
+          next: () => {
+            console.log('Task status updated successfully');
+          },
+          error: (error) => {
+            console.error('Error updating task status', error);
+          }
+        });
+      } else {
+        console.error('Task ID or Project ID is undefined');
       }
     }
   }
