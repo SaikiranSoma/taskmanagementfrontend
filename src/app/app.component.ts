@@ -14,11 +14,15 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Check the initial URL when the app loads
+    this.showNavbar = this.router.url === '/home';
+
+    // Subscribe to router events and adjust navbar visibility
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar = event.url === '/home';
+        // Only show the navbar on the /home route
+        this.showNavbar = event.urlAfterRedirects === '/home';
       }
     });
   }
-
 }

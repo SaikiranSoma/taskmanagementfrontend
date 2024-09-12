@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { Router,NavigationEnd } from '@angular/router';
 
 
 interface Project {
@@ -18,8 +19,16 @@ export class DashboardComponent implements OnInit {
   isDropdownOpen: boolean = false;
   userInitial:string=' '
 
+  constructor(private router: Router,private eRef: ElementRef) {}
+
   ngOnInit() {
     this.loadUserDetails();
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isDropdownOpen = false; // Close dropdown on navigation
+      }
+    });
   }
 
   loadUserDetails() {
@@ -50,4 +59,15 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('token');
     console.log('Signed out');
   }
+
+  
+  // Close dropdown when clicking outside of it
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (this.isDropdownOpen && !this.eRef.nativeElement.contains(event.target)) {
+      this.isDropdownOpen = false;
+    }
+  }
+
+
 }
