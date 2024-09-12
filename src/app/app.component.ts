@@ -9,7 +9,6 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
   
   title = 'taskmanager';
-
   showNavbar = true;
 
   constructor(private router: Router) {}
@@ -17,28 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        
-        if (event.url === '/register') {
-          this.showNavbar = false; 
-        } 
-        else if (event.url === '/login') {
-          this.showNavbar = false;
-        }
-        else if (event.url === '/dashboard') {
-          this.showNavbar = false; 
-        }
-        else if (event.url === '/dashboard/create-project') {
-          this.showNavbar = false; 
-        }
-        else if (event.url === '/dashboard/my-projects') {
-          this.showNavbar = false; 
-        }
-        else if (event.url === '/dashboard/maindashboard') {
-          this.showNavbar = false; 
-        }
-        else {
-          this.showNavbar = true;  
-        }
+        this.showNavbar = event.url === '/home';
       }
     });
   }

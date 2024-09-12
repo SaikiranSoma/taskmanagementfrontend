@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Project } from '../../Models/project';
 import { ProjectService } from '../../services/create-project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-project',
@@ -13,7 +14,11 @@ export class CreateProjectComponent implements OnInit {
   projectList: Project[] = [];
   showModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private projectService: ProjectService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private projectService: ProjectService,
+    private router: Router // Inject the Router for navigation
+  ) {}
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
@@ -37,7 +42,6 @@ export class CreateProjectComponent implements OnInit {
       }
     );
   }
-  
 
   // Add a new project
   addProject(): void {
@@ -65,17 +69,13 @@ export class CreateProjectComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
-  // Optionally, delete a project (uncomment when needed)
-  // deleteProject(index: number, projectId: number): void {
-  //   if (index > -1) {
-  //     this.projectService.deleteProject(projectId).subscribe(
-  //       () => {
-  //         this.projectList.splice(index, 1); // Remove the project from the list
-  //       },
-  //       (error) => {
-  //         console.error('Error deleting project', error);
-  //       }
-  //     );
-  //   }
-  // }
+  // Navigate to MyProjectsComponent with the selected project ID
+  goToProjectTasks(projectId?: number): void {
+    if (projectId) {
+      this.router.navigate(['/dashboard/my-projects', projectId]);
+    } else {
+      console.error('Project ID is undefined');
+    }
+  }
+  
 }

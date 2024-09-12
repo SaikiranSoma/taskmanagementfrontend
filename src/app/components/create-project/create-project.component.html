@@ -3,10 +3,10 @@
 
   <!-- Project Cards -->
   <div class="project-grid">
-    <div *ngFor="let project of projectList; let i = index" class="project-card">
-      <h3>{{ project.projectName }}</h3> <!-- Use ProjectName if backend sends ProjectName -->
-      <p>{{ project.projectDescription }}</p> <!-- Use ProjectDescription if backend sends ProjectDescription -->
-    </div>    
+    <div *ngFor="let project of projectList; let i = index" class="project-card" (click)="goToProjectTasks(project.projectId)">
+      <h3>{{ project.projectName }}</h3>
+      <p>{{ project.projectDescription }}</p>
+    </div>
   </div>
 
   <!-- Add New Project Button -->

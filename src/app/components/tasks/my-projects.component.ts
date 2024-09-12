@@ -1,52 +1,95 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../../services/create-project.service';
+
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
-import { Tasks } from '../../models/task';
+import { Project } from '../../Models/project';
+import { Tasks } from '../../Models/task';
 
 @Component({
   selector: 'app-my-projects',
   templateUrl: './my-projects.component.html',
   styleUrls: ['./my-projects.component.css']
 })
-export class MyProjectsComponent {
- 
-  todo: Tasks[] = [
-    { name: 'Development', description: 'Complete feature A', dueDate: '2024-09-10', priority: 'High', status: 'To Do', assignedTo: 'John Doe' }
-  ];
+export class MyProjectsComponent implements OnInit {
+  projectId!: number;
+  todo: Tasks[] = [];
+  inprogress: Tasks[] = [];
+  completed: Tasks[] = [];
 
-  inprogress: Tasks[] = [
-    { name: 'Testing Project', description: 'Test the application', dueDate: '2024-09-12', priority: 'Medium', status: 'In Progress', assignedTo: 'Jane Doe' }
-  ];
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
-  completed: Tasks[] = [
-    { name: 'Bug Fix', description: 'Fix bug B', dueDate: '2024-09-05', priority: 'Low', status: 'Completed', assignedTo: 'Alice Smith' }
-  ];
+  ngOnInit(): void {
+    // Get the project ID from the route parameters
+    this.projectId = Number(this.route.snapshot.paramMap.get('id'));
+    
+    // Load the tasks for the selected project
+    this.loadProjectTasks();
+  }
 
+  // Load tasks for the selected project
+  loadProjectTasks(): void {
+    this.projectService.getAllProjectsAndTasks().subscribe(
+      (projects: Project[]) => {
+        const project = projects.find(p => p.projectId === this.projectId);
   
-  newTaskName: string = '';
-  newTaskDescription: string = '';
-  newTaskDueDate: string = '';
-  assignedTo: string = ''; 
-
+        if (project && project.tasks) {
+          project.tasks.forEach(task => {
+            const formattedTask: Tasks = {
+              taskName: task.taskName, // Map backend field 'taskName' to 'name'
+              taskDescription: task.taskDescription, // Map 'taskDescription' to 'description'
+              dueDate: task.dueDate,
+              priority: this.mapPriority(task.status), // Map the status to priority
+              status: this.mapStatus(task.status), // Handle status mapping
+              assignedTo: task.assignedTo // Optional, if it exists in backend
+            };
   
+            // Push the task into the correct array based on status
+            if (task.status === 'Todo') {
+              this.todo.push(formattedTask);
+            } else if (task.status === 'InProgress') {
+              this.inprogress.push(formattedTask);
+            } else if (task.status === 'Completed') {
+              this.completed.push(formattedTask);
+            }
+          });
+        }
+      },
+      (error) => {
+        console.error('Error loading project tasks', error);
+      }
+    );
+  }
+  
+  // Optional helper method to map status to priority
+  mapPriority(status: string): string {
+    if (status === 'Todo') return 'High';
+    if (status === 'InProgress') return 'Medium';
+    if (status === 'Completed') return 'Low';
+    return 'Low'; // Default priority
+  }
+  
+  // Optional helper method to map status
+  mapStatus(status: string): string {
+    if (status === 'Todo') return 'To Do';
+    if (status === 'InProgress') return 'In Progress';
+    if (status === 'Completed') return 'Completed';
+    return 'Unknown'; // Default status if not matched
+  }
+  
+
+  // Drag and drop functionality (same as before)
   drop(event: CdkDragDrop<Tasks[]>) {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Data for one of the containers is undefined');
       return;
     }
-    
+
     if (event.previousContainer === event.container) {
-      
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
-      
       const task = event.container.data[event.currentIndex];
       if (event.container.id === 'todo') {
         task.priority = 'High';
@@ -58,51 +101,6 @@ export class MyProjectsComponent {
         task.priority = 'Low';
         task.status = 'Completed';
       }
-    }
-  }
-
-  
-  addTask(status: string) {
-    if (this.newTaskName && this.newTaskDescription && this.newTaskDueDate && this.assignedTo) {
-      let priority: string;
-      let taskStatus: string;
-
-      
-      if (status === 'todo') {
-        priority = 'High';
-        taskStatus = 'To Do';
-      } else if (status === 'inprogress') {
-        priority = 'Medium';
-        taskStatus = 'In Progress';
-      } else {
-        priority = 'Low';
-        taskStatus = 'Completed';
-      }
-
-      
-      const newTask: Tasks = {
-        name: this.newTaskName,
-        description: this.newTaskDescription,
-        dueDate: this.newTaskDueDate,
-        priority: priority,
-        status: taskStatus,
-        assignedTo: this.assignedTo
-      };
-
-      
-      if (status === 'todo') {
-        this.todo.push(newTask);
-      } else if (status === 'inprogress') {
-        this.inprogress.push(newTask);
-      } else if (status === 'completed') {
-        this.completed.push(newTask);
-      }
-
-     
-      this.newTaskName = '';
-      this.newTaskDescription = '';
-      this.newTaskDueDate = '';
-      this.assignedTo = '';
     }
   }
 }
