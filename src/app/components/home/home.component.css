@@ -50,9 +50,16 @@
     margin-top: 20px;
   }
   
-  p {
-    font-size: 1.2rem;
-    color: #b0b0b0;
+  h3 {
+    
+          /** TEXT GRADIENT */ color: #ee36f5; 
+          background-image: -webkit-linear-gradient(45deg, #ee36f5 21%, #1286e6 62%);
+           background-clip: text; 
+           -webkit-background-clip: text; 
+           -text-fill-color: transparent; 
+           -webkit-text-fill-color: transparent;
+          
+        
   }
   
   img {
