@@ -1,14 +1,13 @@
-<div class="container">
-  <h2 class="text-center mb-4">{{projectName}}</h2>
+<div class="container mt-5">
   <div class="row">
     <!-- To Do Column -->
     <div class="col-md-4">
-      <h4>
-        To Do 
-        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-          <i class="bi bi-plus"></i> <!-- Bootstrap plus icon -->
+      <div class="d-flex justify-content-between align-items-center mb-2 heading-wrapper">
+        <h4 class="mb-0">To Do</h4>
+        <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+          <i class="bi bi-plus"></i>
         </button>
-      </h4>
+      </div>
       <div
         cdkDropList
         id="todo"
@@ -27,7 +26,6 @@
                 <div>{{ task.taskDescription }}</div>
                 <div><strong>Assigned To:</strong> {{ task.assignedTo }}</div>
                 <div><strong>Due Date:</strong> {{ task.dueDate | date:'medium' }}</div>
-
               </div>
             </div>
           </div>
@@ -37,7 +35,9 @@
 
     <!-- In Progress Column -->
     <div class="col-md-4">
-      <h4>In Progress</h4>
+      <div class="d-flex justify-content-between align-items-center mb-2 heading-wrapper">
+        <h4 class="mb-0">In Progress</h4>
+      </div>
       <div
         cdkDropList
         id="inprogress"
@@ -47,34 +47,6 @@
         (cdkDropListDropped)="drop($event)"
       >
         <div class="task" *ngFor="let task of inprogress" cdkDrag>
-          <div class="card mb-2">
-            <div class="card-body">
-              <h5 class="card-title">{{ task.taskName }}</h5>
-              <div class="card-text">
-                <span class="badge bg-primary">{{ task.priority }}</span>
-                <span class="badge bg-success">{{ task.status }}</span>
-                <div>{{ task.taskDescription }}</div>
-                <div><strong>Assigned To:</strong> {{ task.assignedTo }}</div>
-                <div><strong>Due Date:</strong> {{ task.dueDate | date:'medium' }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Completed Column -->
-    <div class="col-md-4">
-      <h4>Completed</h4>
-      <div
-        cdkDropList
-        id="completed"
-        class="task-column bg-light p-3"
-        [cdkDropListData]="completed"
-        [cdkDropListConnectedTo]="['todo', 'inprogress']"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div class="task" *ngFor="let task of completed" cdkDrag>
           <div class="card mb-2">
             <div class="card-body">
               <h5 class="card-title">{{ task.taskName }}</h5>
@@ -90,47 +62,34 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Modal for Adding Task -->
-<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Completed Column -->
+    <div class="col-md-4">
+      <div class="d-flex justify-content-between align-items-center mb-2 heading-wrapper">
+        <h4 class="mb-0">Completed</h4>
       </div>
-      <div class="modal-body">
-        <form (ngSubmit)="onAddTask()">
-          <!-- Task Name -->
-          <div class="mb-3">
-            <label for="taskName" class="form-label">Task Name</label>
-            <input type="text" class="form-control" id="taskName" [(ngModel)]="newTask.taskName" name="taskName" required>
+      <div
+        cdkDropList
+        id="completed"
+        class="task-column bg-light p-3"
+        [cdkDropListData]="completed"
+        [cdkDropListConnectedTo]="['todo', 'inprogress']"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="task" *ngFor="let task of completed" cdkDrag>
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.taskName }}</h5>
+              <div class="card-text">
+                <span class="badge bg-primary">{{ task.priority }}</span>
+                <span class="badge bg-success">{{ task.status }}</span>
+                <div>{{ task.taskDescription }}</div>
+                <div><strong>Assigned To:</strong> {{ task.assignedTo }}</div>
+                <div><strong>Due Date:</strong> {{ task.dueDate | date:'medium' }}</div>
+              </div>
+            </div>
           </div>
-
-          <!-- Task Description -->
-          <div class="mb-3">
-            <label for="taskDescription" class="form-label">Task Description</label>
-            <textarea class="form-control" id="taskDescription" [(ngModel)]="newTask.taskDescription" name="taskDescription" required></textarea>
-          </div>
-
-          <!-- Due Date -->
-          <div class="mb-3">
-            <label for="dueDate" class="form-label">Due Date</label>
-            <input type="date" class="form-control" id="dueDate" [(ngModel)]="newTask.dueDate" name="dueDate" required>
-          </div>
-
-          <!-- Assigned To (Dropdown) -->
-          <div class="mb-3">
-            <label for="assignedTo" class="form-label">Assigned To</label>
-            <select class="form-select" id="assignedTo" [(ngModel)]="newTask.assignedTo" name="assignedTo" required>
-              <option *ngFor="let person of assignees" [value]="person.employeeName">{{ person.employeeName }}</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Add Task</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>

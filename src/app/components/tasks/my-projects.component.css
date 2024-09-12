@@ -29,3 +29,11 @@ h4 {
     padding: 10px;
     z-index: 1000;
 }
+.heading-wrapper {
+    height: 50px; 
+  }
+  .task .badge {
+    margin-right: 8px; 
+}
+
+  
