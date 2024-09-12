@@ -16,6 +16,7 @@ export class MyProjectsComponent implements OnInit {
   todo: Tasks[] = [];
   inprogress: Tasks[] = [];
   completed: Tasks[] = [];
+  projectName:string=' ';
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
@@ -23,7 +24,6 @@ export class MyProjectsComponent implements OnInit {
     // Get the project ID from the route parameters
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
     
-    // Load the tasks for the selected project
     this.loadProjectTasks();
   }
 
@@ -33,26 +33,29 @@ export class MyProjectsComponent implements OnInit {
       (projects: Project[]) => {
         const project = projects.find(p => p.projectId === this.projectId);
   
-        if (project && project.tasks) {
-          project.tasks.forEach(task => {
-            const formattedTask: Tasks = {
-              taskName: task.taskName, // Map backend field 'taskName' to 'name'
-              taskDescription: task.taskDescription, // Map 'taskDescription' to 'description'
-              dueDate: task.dueDate,
-              priority: this.mapPriority(task.status), // Map the status to priority
-              status: this.mapStatus(task.status), // Handle status mapping
-              assignedTo: task.assignedTo // Optional, if it exists in backend
-            };
-  
-            // Push the task into the correct array based on status
-            if (task.status === 'Todo') {
-              this.todo.push(formattedTask);
-            } else if (task.status === 'InProgress') {
-              this.inprogress.push(formattedTask);
-            } else if (task.status === 'Completed') {
-              this.completed.push(formattedTask);
-            }
-          });
+        if (project) {
+          this.projectName = project.projectName;  // Assign the project name to the component property
+          if (project.tasks) {
+            project.tasks.forEach(task => {
+              const formattedTask: Tasks = {
+                taskName: task.taskName, 
+                taskDescription: task.taskDescription, 
+                dueDate: task.dueDate,
+                priority: this.mapPriority(task.status), 
+                status: this.mapStatus(task.status), 
+                assignedTo: task.assignedTo 
+              };
+
+              // Push the task into the correct array based on status
+              if (task.status === 'Todo') {
+                this.todo.push(formattedTask);
+              } else if (task.status === 'InProgress') {
+                this.inprogress.push(formattedTask);
+              } else if (task.status === 'Completed') {
+                this.completed.push(formattedTask);
+              }
+            });
+          }
         }
       },
       (error) => {
