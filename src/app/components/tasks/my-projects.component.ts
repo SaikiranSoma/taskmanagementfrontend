@@ -21,22 +21,23 @@ export class MyProjectsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    // Get the project ID from the route parameters
+    
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
     
     this.loadProjectTasks();
   }
 
-  // Load tasks for the selected project
+  
   loadProjectTasks(): void {
     this.projectService.getAllProjectsAndTasks().subscribe(
       (projects: Project[]) => {
         const project = projects.find(p => p.projectId === this.projectId);
   
         if (project) {
-          this.projectName = project.projectName;  // Assign the project name to the component property
+          this.projectName = project.projectName; 
           if (project.tasks) {
             project.tasks.forEach(task => {
+              console.log(task);
               const formattedTask: Tasks = {
                 taskName: task.taskName, 
                 taskDescription: task.taskDescription, 
@@ -46,7 +47,7 @@ export class MyProjectsComponent implements OnInit {
                 assignedTo: task.assignedTo 
               };
 
-              // Push the task into the correct array based on status
+              
               if (task.status === 'Todo') {
                 this.todo.push(formattedTask);
               } else if (task.status === 'InProgress') {
@@ -64,24 +65,24 @@ export class MyProjectsComponent implements OnInit {
     );
   }
   
-  // Optional helper method to map status to priority
+  
   mapPriority(status: string): string {
     if (status === 'Todo') return 'High';
     if (status === 'InProgress') return 'Medium';
     if (status === 'Completed') return 'Low';
-    return 'Low'; // Default priority
+    return 'High'; 
   }
   
-  // Optional helper method to map status
+  
   mapStatus(status: string): string {
     if (status === 'Todo') return 'To Do';
     if (status === 'InProgress') return 'In Progress';
     if (status === 'Completed') return 'Completed';
-    return 'Unknown'; // Default status if not matched
+    return 'Unknown'; 
   }
   
 
-  // Drag and drop functionality (same as before)
+  
   drop(event: CdkDragDrop<Tasks[]>) {
     if (!event.previousContainer.data || !event.container.data) {
       console.error('Data for one of the containers is undefined');

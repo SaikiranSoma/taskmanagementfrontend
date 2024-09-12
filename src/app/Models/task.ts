@@ -1,9 +1,9 @@
 export interface Tasks {
   taskId?: number;
-  taskName: string; // Change 'name' to 'taskName'
-  taskDescription: string; // Change 'description' to 'taskDescription'
+  taskName: string; 
+  taskDescription: string; 
   dueDate: string;
   priority: string;
   status: string;
-  assignedTo?: string;
+  assignedTo: string;
 }

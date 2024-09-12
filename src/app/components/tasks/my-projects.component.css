@@ -15,11 +15,11 @@ h4 {
     font-weight: bold;
 }
 .task-column {
-    height: 300px;
+    height: 350px;
     overflow-y: auto; 
 }
 .card {
-    max-height: 150px;
+    max-height: 200px;
     overflow-y: hidden;
 }
 .cdk-drag-preview {
