@@ -8,36 +8,124 @@
   color: #333;
 }
 
+/* Project card starts */
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 20px 0;
+  display: flex; /* This will align items in a row */
+  flex-wrap: wrap; /* Allows the items to wrap if there are too many for one row */
+  gap: 1rem; /* Adds space between the project cards */
+  justify-content: space-around; /* Distributes the cards evenly */
 }
 
-.project-card {
-  background-color: #f3f4f6;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+/* From Uiverse.io by SouravBandyopadhyay */
+.notification {
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  position: relative;
+  width: 18rem;
+  height: 8rem;
+  /* background: #29292c; */
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+  --color: #32a6ff;
+  cursor: pointer;
 }
 
-.project-card h3 {
-  font-size: 1.5rem;
-  color: #1f2937;
+.notification:before {
+  position: absolute;
+  content: "";
+  inset: 0.0625rem;
+  border-radius: 0.9375rem;
+  background: #18181b;
+  z-index: 2;
 }
 
-.project-card p {
-  color: #4b5563;
+.notification:after {
+  position: absolute;
+  content: "";
+  width: 0.25rem;
+  inset: 0.65rem auto 0.65rem 0.5rem;
+  border-radius: 0.125rem;
+  background: var(--gradient);
+  transition: transform 300ms ease;
+  z-index: 4;
 }
 
-.project-card:hover {
-  transform: translateY(-10px);
+.notification:hover:after {
+  transform: translateX(0.15rem);
 }
+
+.notititle {
+  color: var(--color);
+  padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+.notification:hover .notititle {
+  transform: translateX(0.15rem);
+}
+
+.notibody {
+  color: #99999d;
+  padding: 0 1.25rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+.notification:hover .notibody {
+  transform: translateX(0.25rem);
+}
+
+.notiglow,
+.notiborderglow {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle closest-side at center, white, transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.notiglow {
+  z-index: 3;
+}
+
+.notiborderglow {
+  z-index: 1;
+}
+
+.notification:hover .notiglow {
+  opacity: 0.1;
+}
+
+.notification:hover .notiborderglow {
+  opacity: 0.1;
+}
+
+.note {
+  color: var(--color);
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.9rem;
+  width: 75%;
+}
+
+/* project component end */
+
 
 .add-btn {
-  background-color: #3b82f6;
+  background-color:#32a6ff;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -47,8 +135,11 @@
 }
 
 .add-btn:hover {
-  background-color: #2563eb;
+  background-color: #0086ec;
 }
+
+
+
 
 .modal {
   position: fixed;

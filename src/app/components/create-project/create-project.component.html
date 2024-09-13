@@ -3,14 +3,17 @@
 
   <!-- Project Cards -->
   <div class="project-grid">
-    <div *ngFor="let project of projectList; let i = index" class="project-card" (click)="goToProjectTasks(project.projectId)">
-      <h3>{{ project.projectName }}</h3>
-      <p>{{ project.projectDescription }}</p>
-    </div>
+  <div *ngFor="let project of projectList; let i = index" class="notification" (click)="goToProjectTasks(project.projectId)">
+    <div class="notiglow"></div>
+    <div class="notiborderglow"></div>
+    <div class="notititle">{{ project.projectName }}</div>
+    <div class="notibody">{{ project.projectDescription }}</div>
   </div>
+</div>
+
 
   <!-- Add New Project Button -->
-  <button class="add-btn" (click)="toggleModal()">+ Add New Project</button>
+  <button class="add-btn mt-3" (click)="toggleModal()">+ Add New Project</button>
 
   <!-- Modal for Adding Project -->
   <div class="modal" *ngIf="showModal">
